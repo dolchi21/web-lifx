@@ -5,7 +5,8 @@ var middleware = applyMiddleware(createLogger())
 
 var defaultState = {
     token: 'ca0987ea7ac629b43f5a2aaa437ddf6f0da754ce8fecc7bd92a0c0cd7049ae87',
-    bulbs: []
+    bulbs: [],
+    scenes: []
 }
 var store = createStore((state, action) => {
     var { type, payload } = action
@@ -14,6 +15,11 @@ var store = createStore((state, action) => {
             return {
                 ...state,
                 token: payload
+            }
+        case 'SCENES':
+            return {
+                ...state,
+                scenes: payload
             }
         case 'BULBS':
             return {
@@ -29,7 +35,7 @@ var store = createStore((state, action) => {
             })
             return { ...state, bulbs }
         }
-        case 'BULB/COLOR':{
+        case 'BULB/COLOR': {
             let bulbs = state.bulbs.map(bulb => {
                 if (bulb.id === payload.id) {
                     Object.assign(bulb, payload.color)

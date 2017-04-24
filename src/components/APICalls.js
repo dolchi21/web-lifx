@@ -11,6 +11,14 @@ function loadLights() {
         })
     })
 }
+function loadScenes() {
+    return API.listScenes().then(scenes => {
+        store.dispatch({
+            type: 'SCENES',
+            payload: scenes
+        })
+    })
+}
 
 class APICalls extends React.Component {
     componentWillMount(){
@@ -20,16 +28,19 @@ class APICalls extends React.Component {
         return (
             <div>
                 <div>
-                    <button onClick={this.handleClick.bind(this)}>ListAll</button>
+                    <button onClick={this.handleClick.bind(this)}>ListLights</button>
                 </div>
                 <div>
-                    <button onClick={this.handleClick.bind(this)}>List</button>
+                    <button onClick={this.handleScenesClick.bind(this)}>ListScenes</button>
                 </div>
             </div>
         )
     }
     handleClick(ev) {
         loadLights()
+    }
+    handleScenesClick(){
+        loadScenes()
     }
 }
 

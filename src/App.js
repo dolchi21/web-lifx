@@ -10,6 +10,7 @@ import store from './store'
 
 import UserToken from './containers/UserToken'
 import BulbsList from './containers/BulbsList'
+import ScenesList from './containers/ScenesList'
 import APICalls from './components/APICalls'
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
           <Layout>
             <Sider>
               <APICalls />
+              <ScenesList/>
             </Sider>
             <Layout>
               <Content style={{ padding: '1rem', minHeight: '280px' }}>
