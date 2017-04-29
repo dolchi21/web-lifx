@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux'
-import { Layout, Menu, Icon } from 'antd'
+import { Layout, Menu, Icon, Tooltip } from 'antd'
 const { Header, Content, Sider } = Layout
 
 var SubMenu = Menu.SubMenu
@@ -42,7 +42,18 @@ class App extends Component {
 					)}>
 						<Menu theme="dark" mode="inline" onClick={f => f} defaultSelectedKeys={['1']} defaultOpenKeys={['sub_token']}>
 							<SubMenu title="Token" key="sub_token">
-								<UserToken />
+								<div style={{ display: 'flex', alignItems: 'center', padding: '0.5rem' }}>
+									<div style={{ marginRight: '0.25rem' }}>
+										<UserToken />
+									</div>
+									<div>
+										<Tooltip placement="right" title={(
+											<p>You can generate an access token in your <a href="https://cloud.lifx.com/settings" target="_blank">LIFX account settings</a>.</p>
+										)}>
+											<Icon type="question-circle" />
+										</Tooltip>
+									</div>
+								</div>
 							</SubMenu>
 							<APICalls />
 							<ScenesList key="sub2" />
