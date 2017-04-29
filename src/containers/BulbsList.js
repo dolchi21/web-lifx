@@ -13,14 +13,14 @@ class BulbsList extends React.Component {
                 {bulbs.sort((e1, e2) => e1.label.localeCompare(e2.label)).map(bulb => {
                     var brightness = bulb.power ? bulb.brightness : 1
                     var style = {
-                        backgroundColor: 'hsla(' + bulb.hue + ', ' + bulb.saturation * 100 + '%, ' + brightness * 100 + '%, 1)'
+                        backgroundColor: 'hsla(' + bulb.hue + ', ' + bulb.saturation * 100 + '%, ' + brightness * 75 + '%, 1)'
                     }
                     return (
                         <Card key={bulb.id} style={style} title={(
                             <span title={JSON.stringify(bulb, null, 2)}>{bulb.label} ({bulb.id})</span>
                         )} extra={(
                             <PowerToggle id={bulb.id} />
-                        )} bodyStyle={style}>
+                        )} bodyStyle={style} style={{ marginBottom: '0.5rem' }}>
                             <ColorControl id={bulb.id} />
                         </Card>
                     )
