@@ -1,4 +1,8 @@
 import React from 'react'
+import { Menu } from 'antd'
+
+var { Item, ItemGroup, SubMenu } = Menu
+
 import * as API from '../api/lifx'
 
 import store from '../store'
@@ -21,25 +25,27 @@ function loadScenes() {
 }
 
 class APICalls extends React.Component {
-    componentWillMount(){
+    componentWillMount() {
         loadLights()
     }
     render() {
         return (
-            <div>
-                <div>
-                    <button onClick={this.handleClick.bind(this)}>ListLights</button>
-                </div>
-                <div>
-                    <button onClick={this.handleScenesClick.bind(this)}>ListScenes</button>
-                </div>
-            </div>
+            <Menu mode="inline" theme="dark">
+                <SubMenu title="Actions">
+                    <Item>
+                        <span onClick={this.handleClick.bind(this)}>List Lights</span>
+                    </Item>
+                    <Item>
+                        <span onClick={this.handleScenesClick.bind(this)}>List Scenes</span>
+                    </Item>
+                </SubMenu>
+            </Menu>
         )
     }
     handleClick(ev) {
         loadLights()
     }
-    handleScenesClick(){
+    handleScenesClick() {
         loadScenes()
     }
 }

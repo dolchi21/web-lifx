@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button } from 'antd'
+import { Button, Menu } from 'antd'
+
+var { Item, ItemGroup, SubMenu } = Menu
 
 import store from '../store'
 import * as API from '../api/lifx'
@@ -20,16 +22,21 @@ class ScenesList extends React.Component {
     }
     render() {
         var { scenes } = this.props
+        //if (!scenes.length) return null
         return (
-            <div>
-                {scenes.map(scene => {
-                    return (
-                        <div>
-                            <Button onClick={API.activateScene.bind(this, scene.uuid)}>{scene.name}</Button>
-                        </div>
-                    )
-                })}
-            </div>
+            <Menu mode="inline" theme="dark">
+                <SubMenu title="Scenes" key="sub2" openKeys={[]}>
+                    <ItemGroup key="g1">
+                        {scenes.map(scene => {
+                            return (
+                                <Item key={scene.uuid}>
+                                    <span onClick={API.activateScene.bind(this, scene.uuid)}>{scene.name}</span>
+                                </Item>
+                            )
+                        })}
+                    </ItemGroup>
+                </SubMenu>
+            </Menu>
         )
     }
 }
