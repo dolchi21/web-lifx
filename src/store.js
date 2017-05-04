@@ -12,6 +12,8 @@ var store = createStore((state, action) => {
     var { type, payload } = action
     switch (type) {
         case 'USER/TOKEN':
+            localStorage.token = payload
+            configureAxios(payload)
             return {
                 ...state,
                 token: payload
@@ -21,41 +23,56 @@ var store = createStore((state, action) => {
                 ...state,
                 scenes: payload
             }
-        case 'BULBS':
+        default:
             return {
                 ...state,
-                bulbs: payload
+                bulbs : bulbsReducer(state.bulbs, action)
             }
+    }
+}, defaultState, middleware);
+
+function bulbsReducer(state = [], action) {
+    var { type, payload } = action
+    switch (type) {
+        case 'BULBS':
+            return payload
         case 'BULB': {
-            let bulbs = state.bulbs.map(bulb => {
+            return state.map(bulb => {
                 if (bulb.id === payload.id) {
                     return payload
                 }
                 return bulb
             })
-            return { ...state, bulbs }
         }
         case 'BULB/COLOR': {
-            let bulbs = state.bulbs.map(bulb => {
+            return state.map(bulb => {
                 if (bulb.id === payload.id) {
                     Object.assign(bulb, payload.color)
                 }
                 return bulb
             })
-            return { ...state, bulbs }
         }
         case 'BULB/TOGGLE': {
-            let bulbs = state.bulbs.map(bulb => {
+            return state.map(bulb => {
                 if (bulb.id === payload) {
                     bulb.power = !bulb.power
                 }
                 return bulb
             })
-            return { ...state, bulbs }
         }
         default:
             return state
     }
-}, defaultState, middleware)
+}
+
+store.dispatch({
+    type: 'USER/TOKEN',
+    payload: localStorage.token || 'ca0987ea7ac629b43f5a2aaa437ddf6f0da754ce8fecc7bd92a0c0cd7049ae87'
+})
+
+function configureAxios(token) {
+    var axios = require('axios')
+    axios.defaults.headers['Authorization'] = 'Bearer ' + token
+}
 
 export default store
