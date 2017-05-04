@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Menu } from 'antd'
+import { Card, Menu, Button } from 'antd'
 
 var { Item, ItemGroup, SubMenu } = Menu
+
+import BulbLabel from './BulbLabel'
 
 import store from '../store'
 import * as API from '../api/lifx'
@@ -22,21 +24,33 @@ class ScenesList extends React.Component {
     }
     render() {
         var { scenes } = this.props
-        //if (!scenes.length) return null
         return (
-            <Menu mode="inline" theme="dark">
-                <SubMenu title="Scenes" key="sub2" openKeys={[]}>
-                    <ItemGroup key="g1">
-                        {scenes.map(scene => {
-                            return (
-                                <Item key={scene.uuid}>
-                                    <span onClick={API.activateScene.bind(this, scene.uuid)}>{scene.name}</span>
-                                </Item>
-                            )
-                        })}
-                    </ItemGroup>
-                </SubMenu>
-            </Menu>
+            <div>
+                {scenes.map(scene => {
+                    return (
+                        <Card title={scene.name} extra={<Button onClick={API.activateScene.bind(this, scene.uuid)}>{scene.name}</Button>}>
+                            <div key={scene.uuid} style={{
+                                display: 'flex',
+                                justifyContent: 'space-around'
+                            }}>
+                                {scene.states.map(state => {
+                                    var { brightness, color } = state
+                                    var { hue, saturation } = color
+                                    return (
+                                        <div key={state.selector}>
+                                            <BulbLabel id={state.selector.replace('id:', '')} />
+                                            <div style={{
+                                                border: '1px solid', width: '5rem', height: '5rem',
+                                                backgroundColor: 'hsl(:hue, :sat%, :brightness%)'.replace(':hue', hue).replace(':brightness', brightness * (100 - (50 * saturation))).replace(':sat', saturation * 100)
+                                            }}></div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </Card>
+                    )
+                })}
+            </div>
         )
     }
 }
