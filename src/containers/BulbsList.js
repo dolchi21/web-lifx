@@ -1,9 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import * as API from '../api/lifx'
+
 import Bulb from './Bulb'
 
+function loadLights(dispatch) {
+    return API.listLights().then(bulbs => {
+        dispatch({
+            type: 'BULBS',
+            payload: bulbs
+        })
+    })
+}
+
 class BulbsList extends React.Component {
+    componentWillMount(){
+        this.props.load()
+    }
     render() {
         var { bulbs } = this.props
         return (
@@ -21,5 +35,9 @@ export default connect(state => {
         bulbs: state.bulbs
     }
 }, dispatch => {
-    return {}
+    return {
+        load(){
+            loadLights(dispatch)
+        }
+    }
 })(BulbsList)
