@@ -26,10 +26,26 @@ var store = createStore((state, action) => {
         default:
             return {
                 ...state,
-                bulbs : bulbsReducer(state.bulbs, action)
+                bulbs: bulbsReducer(state.bulbs, action),
+                user: userReducer(state.user, action)
             }
     }
 }, defaultState, middleware);
+
+function userReducer(state = {}, action) {
+    var { type, payload } = action
+    switch (type) {
+        case 'FIREBASE/USER':
+            return Object.assign({}, state, {
+                uid: payload.uid,
+                email: payload.email
+            })
+        case 'FIREBASE/USER/LOGOUT':
+            return {}
+        default:
+            return state
+    }
+}
 
 function bulbsReducer(state = [], action) {
     var { type, payload } = action
