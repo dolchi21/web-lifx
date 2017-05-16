@@ -34,7 +34,9 @@ export function listScenes(selector = 'all') {
 
 export function activateScene(uuid) {
     var url = 'https://api.lifx.com/v1/scenes/scene_id:' + uuid + '/activate'
-    return axios.put(url).then(response => response.data)
+    return axios.put(url, {
+        duration: 5
+    }).then(response => response.data)
 }
 
 function IBulbModel(b) {
