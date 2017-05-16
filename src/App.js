@@ -17,7 +17,6 @@ import UserToken from './containers/UserToken'
 import BulbsList from './containers/BulbsList'
 import Bulb from './containers/Bulb'
 import ScenesList from './containers/ScenesList'
-import APICalls from './components/APICalls'
 
 import Login from './containers/Login'
 import UserAttribute from './containers/UserAttribute'
