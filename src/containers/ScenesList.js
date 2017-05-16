@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, Menu, Button } from 'antd'
-
-var { Item, ItemGroup, SubMenu } = Menu
+import { Card, Button } from 'antd'
 
 import BulbLabel from './BulbLabel'
 
@@ -28,7 +26,7 @@ class ScenesList extends React.Component {
             <div>
                 {scenes.map(scene => {
                     return (
-                        <Card title={scene.name} extra={<Button onClick={API.activateScene.bind(this, scene.uuid)}>{scene.name}</Button>}>
+                        <Card key={scene.uuid} title={scene.name} extra={<Button onClick={API.activateScene.bind(this, scene.uuid)}>{scene.name}</Button>}>
                             <div key={scene.uuid} style={{
                                 display: 'flex',
                                 justifyContent: 'space-around'
