@@ -22,3 +22,9 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.scenes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0.25rem;
+}

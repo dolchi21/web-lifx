@@ -23,7 +23,7 @@ class ScenesList extends React.Component {
     render() {
         var { scenes } = this.props
         return (
-            <div>
+            <div className="scenes-grid">
                 {scenes.map(scene => {
                     return (
                         <Card key={scene.uuid} title={scene.name} extra={<Button onClick={API.activateScene.bind(this, scene.uuid)}>{scene.name}</Button>}>
