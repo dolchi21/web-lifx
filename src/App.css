@@ -28,3 +28,12 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0.25rem;
 }
+
+.scenes-grid .ant-card-body {
+  padding: 0;
+}
+
+.SceneBulb {
+  flex-grow: 1;
+  height: 5rem;
+}
