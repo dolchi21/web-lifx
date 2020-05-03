@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, Button } from 'antd'
+import { Card } from 'antd'
 
 import store from '../store'
 import * as API from '../api/lifx'
@@ -50,10 +50,9 @@ class ScenesList extends React.Component {
     }
 }
 
-export default connect(state => {
-    return {
-        scenes: state.scenes
-    }
-}, dispatch => {
-    return {}
-})(ScenesList)
+const ms2p = state => ({
+    scenes: state.scenes
+})
+const md2p = dispatch => ({})
+
+export default connect(ms2p, md2p)(ScenesList)
